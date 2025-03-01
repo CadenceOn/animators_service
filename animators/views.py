@@ -34,7 +34,7 @@ def create_request(request):
             return redirect('request_list')
     else:
         form = RequestForm()
-    return render(request, 'request_form.html', {'form': form})
+    return render(request, 'requests_form.html', {'form': form})
 
 
 @login_required
@@ -53,4 +53,4 @@ def edit_request(request, request_id):
             return redirect('request_list')
     else:
         form = RequestForm(instance=req)
-    return render(request, 'request_form.html', {'form': form})
+    return render(request, 'requests_form.html', {'form': form})
