@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список заявок</title>
+</head>
+<body>
+    <h1>Заявки на аниматоров</h1>
+    {% if user.is_authenticated %}
+        <p>Привет, {{ user.username }} ({{ user.role }})!</p>
+        <a href="{% url 'create_request' %}">Создать заявку</a> |
+        <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'login' %}">Войти</a>
+    {% endif %}
+    <h2>Список заявок</h2>
+    <ul>
+        {% for request in requests %}
+            <li>
+                {{ request.description }} от {{ request.parent }} на {{ request.date }} ({{ request.status }})
+                {% if user.role == 'animator' %}
+                    <a href="{% url 'edit_request' request.id %}">Редактировать</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Заявки отсутствуют</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
